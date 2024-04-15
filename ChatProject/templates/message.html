@@ -12,6 +12,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+
+    <!-- Navigation bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <!-- Add an exit button -->
+            <li><button id="exitButton">Exit</button></li>
+        </ul>
+    </nav>
+
     <div class="parent">
         <div class="child-2">
             <center><h2>Chat</h2></center><hr>
@@ -119,6 +129,15 @@
         scrollToBottom();
     });
 
+    // Add event listener for the exit button
+    document.getElementById('exitButton').addEventListener('click', function(event){
+    // Close WebSocket connection
+    socket.close(); 
+
+    // Redirect to the desired page
+    window.location.href = '/'; // Redirect to the home page
+});
+
 </script>
 <style>
 
@@ -136,7 +155,7 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #659DBD;
+    background-color: rgb(5, 82, 82);
     padding: 10px;
 }
 
@@ -182,7 +201,7 @@ nav ul li a {
     align-items: center;
     justify-content: space-around;
     background-color: #fff;
-    border: 1px solid dodgerblue;
+    /* border: 1px solid dodgerblue; */
 }
 
 .profile-pic {
@@ -230,7 +249,7 @@ nav ul li a {
 
 .chat-body, .message {
     width: 100%;
-    background-color: rgb(114, 121, 121);
+    background-color: rgb(5, 82, 82);
     border-radius: 10px;
     display: flex;      
     padding: 10px;
@@ -295,6 +314,7 @@ form button {
     border-color: black;
     color: #000;
 }
+
 @media only screen and (max-width: 600px) {
 .child-2 {
     width: 100%;
