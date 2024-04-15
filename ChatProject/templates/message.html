@@ -93,14 +93,20 @@
         console.log("WebSocket connection closed!");
     };
 
+    // Define currentTime outside of the event listener
+    let currentTime;
+
     // Form submit listener so page doesn't refresh page on send
     document.getElementById('message-form').addEventListener('submit', function(event){
         event.preventDefault();
         const message = document.getElementById('msg').value;
+        // Get the current timestamp
+        const currentTime = new Date().toISOString();
         // send user input data in json format 
         socket.send(
             JSON.stringify({
                 'message': message,
+                'timestamp': currentTime,
                 'room_name': '{{room_name}}',
                 'sender': '{{user}}',
             })
@@ -114,17 +120,45 @@
 
         var sender = messageData['sender'];
         var message = messageData['message'];
+        var timestamp = messageData['timestamp']; 
+
+        console.log("Sender:", sender);
+        console.log("Message:", message);
+        console.log("Timestamp:", timestamp);
+
+        // Convert timestamp to Date object
+        var date = new Date(timestamp);
+
+        // Format the timestamp using toLocaleString()
+        var formattedTimestamp = date.toLocaleString('en-US', {
+        // var formattedTimestamp = new Date(timestamp).toLocaleString('en-US', {
+            month: 'long', // Display full month name
+            day: 'numeric', // Display day of the month
+            year: 'numeric', // Display full year
+            hour: 'numeric', // Display hour
+            minute: 'numeric', // Display minute
+            hour12: true // Use 12-hour clock format
+        });
 
         // Empty message input field after message has been sent
         if (sender == '{{user}}'){
             document.getElementById('msg').value = '';
         }
+        
         // Append message to chatbox
         var messageDiv = document.querySelector('.message');
         if (sender != '{{user}}') { // Assuming you have a variable `currentUser` to hold the current user's name
-            messageDiv.innerHTML += '<div class="receive"><p style="color: #000;">' + message + '<strong>-' + sender + '</strong></p></div>';
+            messageDiv.innerHTML += '<div class="receive"><p style="color: #000;">' + message + '<strong>-' + sender + '</strong></p><span class="timestamp">' + formattedTimestamp + '</span></div>';
         } else {
-            messageDiv.innerHTML += '<div class="send"><p style="color: #000;">' + message + '</p></div>';
+            // Update the timestamp for the sent message when it's received from the server
+            var sentMessage = '<div class="send"><p style="color: #000;">' + message + '</p><span class="timestamp">' + formattedTimestamp + '</span></div>';
+            messageDiv.innerHTML += sentMessage;
+            // Check if the message is sent, then update the timestamp
+            if (messageData['sender'] == '{{user}}') {
+                const index = messageDiv.children.length - 1; // Index of the last child element
+                // Replace the "Sending..." placeholder with the actual timestamp
+                messageDiv.children[index].querySelector('.timestamp').innerText = formattedTimestamp;
+            }
         }
         scrollToBottom();
     });
@@ -174,6 +208,10 @@ nav ul li:hover {
 nav ul li a {
     text-decoration: none;
     color: #fff;
+}
+
+#exitButton {
+    padding: 3px;
 }
 
 .parent {
@@ -285,6 +323,12 @@ nav ul li a {
 
 .chat-body .message .receive {
     align-self: flex-start;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #777;
+    align-self: flex-end; /* Align timestamp to the right */
 }
 
 .message .timestamp {

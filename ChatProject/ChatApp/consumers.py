@@ -31,16 +31,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         data = event['message']
         await self.create_message(data=data)
-
+        # Ensure that the timestamp is included in the response_data
         response_data = {
             'sender': data['sender'],
-            'message': data['message']
+            'message': data['message'],
+            'timestamp': data['timestamp'] 
         }
         await self.send(text_data=json.dumps({'message': response_data}))
     # if message user typed already been saved
     @database_sync_to_async
     def create_message(self, data):
-
+        # Accessing timezone here
         get_room_by_name = Room.objects.get(room_name=data['room_name'])
         
         if not Message.objects.filter(message=data['message']).exists():
