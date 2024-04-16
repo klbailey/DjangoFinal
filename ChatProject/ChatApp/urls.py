@@ -1,5 +1,7 @@
 #ChatProject>ChatApp>urls.py
 
+#ChatProject>ChatApp>urls.py
+
 from django.urls import path
 from . import views
 

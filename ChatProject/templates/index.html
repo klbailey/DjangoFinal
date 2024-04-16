@@ -11,17 +11,41 @@
     <div class="parent">
         <div class="child">
             <h1>Enter Room</h1>
+            
             <form action="" method="POST">
                 {% csrf_token %}
-                <label for="">Username</label><br>
-                <input type="text" placeholder="Username" name="username" required><br>
-                <label for="">Room name</label><br>
-                <input type="text" placeholder="room name" name="room" required><br>
+                <label for="username">Username</label><br>
+                <input type="text" id="username" name="username" placeholder="Username" required><br>
+                <label for="room">Room name</label><br>
+                <input type="text" id="room" name="room" placeholder="Room name" required><br>
+                
+                <label for="existing-rooms">Existing Rooms</label><br>
+
+                <select id="existing-rooms" name="existing_rooms">
+                    {% if rooms %}
+                        <option value="" disabled selected>Select a room</option> <!-- Add a default option -->
+                        {% for room_name in rooms %}
+                            <option value="{{ room_name }}">{{ room_name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="" disabled selected>No rooms found</option> <!-- Display if no rooms exist -->
+                    {% endif %}
+                </select>         
                 <center><button type="submit">Submit</button></center><br>
-            </form>
+            </form> 
+            
         </div>
     </div>
 </body>
+<script>
+    document.getElementById('existing-rooms').addEventListener('change', function() {
+        var selectedRoom = this.value; // Get the selected room name
+        var username = document.getElementById('username').value; // Get the username
+        var url = "/"+selectedRoom+"/"+username+"/"; // Construct the URL
+        window.location.href = url; // Redirect the user to the selected room's URL
+    });
+</script>
+
 <style>
 
 * {
@@ -76,5 +100,6 @@ button:hover {
     padding: 15px;
     transition: 0.8s;
 }
+
 </style>
 </html>

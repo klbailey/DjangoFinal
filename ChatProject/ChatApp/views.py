@@ -16,8 +16,8 @@ def CreateRoom(request):
             new_room = Room(room_name = room)
             new_room.save()
             return redirect('room', room_name=room, username=username)
-
-    return render(request, 'index.html')
+    rooms = Room.objects.all().values_list('room_name', flat=True)
+    return render(request, 'index.html', {'rooms': rooms})
 
 def MessageView(request, room_name, username):
     # Get room object by name

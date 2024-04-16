@@ -16,7 +16,7 @@
     <!-- Navigation bar -->
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
+            <li style="color:white;">You are in the room {{ user }}</li>
             <!-- Add an exit button -->
             <li><button id="exitButton">Exit</button></li>
         </ul>
@@ -76,6 +76,8 @@
         var chatContainer = document.getElementById("chatContainer");
         chatContainer.scrollTop = chatContainer.scrollHeight;
     }
+    // Call the function when the page loads or when a new message is added
+    window.onload = scrollToBottom;
     // if url is secure (https) will use ws 
     const websocketProtocol = window.location.protocol === "https:" ? "wss" : "ws";
     // create endpoint url map to routing.py
