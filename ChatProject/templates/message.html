@@ -22,9 +22,22 @@
         </ul>
     </nav>
 
+    <!-- Add sidebar? -->
+
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <h3>Active Users:</h3>
+            <ul>
+                {% for user in active_users %}
+                    <li>{{ user }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     <div class="parent">
         <div class="child-2">
-            <center><h2>Chat</h2></center><hr>
+            <center><br><h2>Chat</h2></center><br>
             <div class="chat-body-parent">
                 <div class="chat-body" id="tasks">
                     <div class="message" id="chatContainer">
@@ -217,7 +230,8 @@ nav ul li a {
 }
 
 .parent {
-    height: 100vh;
+    /* height: 100vh; */
+    
     display: flex;
     justify-content: center;
     background-position: center; 
@@ -225,6 +239,9 @@ nav ul li a {
     background-size: cover; 
     align-items: center;
     width: 100%;
+
+    padding: 10px;
+    background-color: teal;
 }
 
 .child-1 {
@@ -279,13 +296,17 @@ nav ul li a {
     border-radius: 10px;
     padding: 10px;
     background-color: #ebe9e2;
+    height: 80vh; /* Adjust this value to make it taller *
+    /* height: 80vh; */
 }
 
 .chat-body-parent {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center;
+    margin-bottom: 20px; */
 }
+
 
 .chat-body, .message {
     width: 100%;
@@ -297,8 +318,8 @@ nav ul li a {
 }
 
 .message {
-    max-height: 400px;  
-    overflow-y: auto;
+    max-height: 600px;  
+    overflow-y: auto;    
 }
 
 .chat-body .message .receive, .send {
@@ -367,5 +388,30 @@ form button {
 }
 }
 
+.sidebar {
+     /* Adjust as needed */
+    background-color: teal;
+    padding: 5px;
+    margin-bottom: 0px;
+    /* border-radius: 10px; */
+    /* margin-right: 20px; */
+}
+
+.sidebar-content {
+    color: white;
+}
+
+.sidebar-content h3 {
+    margin-bottom: 10px;
+}
+
+.sidebar-content ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar-content ul li {
+    margin-bottom: 5px;
+}
 </style>
 </html>
