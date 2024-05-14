@@ -1,0 +1,27 @@
+<!-- finalAssessment>templates>add_travel_plan.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Travel Plan</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Add Travel Plan</h1>
+    <a href="{% url 'home' %}">Home</a> | <a href="{% url 'logout' %}">Logout</a>
+    <form method="post">
+        {% csrf_token %}
+        <label for="destination">Destination:</label><br>
+        <input type="text" id="destination" name="destination"><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description"></textarea><br>
+        <label for="travel_date_from">Travel Start Date:</label><br>
+        <input type="date" id="travel_date_from" name="travel_date_from"><br>
+        <label for="travel_date_to">Travel End Date:</label><br>
+        <input type="date" id="travel_date_to" name="travel_date_to"><br>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

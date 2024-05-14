@@ -1,0 +1,58 @@
+/* finalAssessment>myapp>static>css>style.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.form-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; /* Space evenly between the forms */
+}
+
+.register-form,
+.login-form {
+    width: 45%; /* Adjusted width to fit within the container */
+}
+/* finalAssessment>myapp>static>css>styles.css */
+
+.register-form {
+    width: 45%; /* Adjusted width to fit within the container */
+    text-align: left; /* Align the content to the left */
+}
+
+/* Dashboard */
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Make container a single column grid */
+    gap: 20px; /* Add some space between elements */
+}
+
+.dashboard-container .header {
+    text-align: center; /* Center the header content */
+}
+
+.dashboard-container .trip-schedules,
+.dashboard-container .other-travel-plans,
+.dashboard-container .add-travel-plan {
+    text-align: left; /* Align content of these sections to the left */
+}
+
+/* Add border around tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
